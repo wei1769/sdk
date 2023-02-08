@@ -29,6 +29,7 @@ const useCreateUser = (sdk: SDK, owner: PublicKey) => {
 
   return { 
     instructionMethodBuilder: user ? user.instructionMethodBuilder : undefined,
+    submitTransaction: user && user.instructionMethodBuilder ? user.instructionMethodBuilder.rpc() : undefined,
     userPDA: user ? user.userPDA : undefined,
     loading, 
     error 

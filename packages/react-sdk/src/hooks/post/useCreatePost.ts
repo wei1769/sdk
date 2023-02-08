@@ -29,6 +29,7 @@ const useCreatePost = (sdk: SDK, metadataUri: String, profileAccount: PublicKey,
 
   return { 
     instructionMethodBuilder: post ? post.instructionMethodBuilder : undefined,
+    submitTransaction: post && post.instructionMethodBuilder ? post.instructionMethodBuilder.rpc() : undefined,
     postPDA: post ? post.postPDA : undefined,
     loading, 
     error 
