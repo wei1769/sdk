@@ -13,8 +13,7 @@ const useUser = (sdk: SDK, userAccount: PublicKey) => {
       setError(null);
 
       try {
-        let data;
-        data = await sdk.user.get(userAccount);
+        const data = await sdk.user.get(userAccount);
 
         setUser(data);
       } catch (err: any) {

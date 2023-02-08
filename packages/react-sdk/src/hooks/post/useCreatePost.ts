@@ -13,24 +13,23 @@ const useCreatePost = (sdk: SDK, metadataUri: String, profileAccount: PublicKey,
       setError(null);
 
       try {
-        let data;
-        data = await sdk.post.create(metadataUri, profileAccount, userAccount, owner);
-
+        const data = await sdk.post.create(metadataUri, profileAccount, userAccount, owner);
         setPost(data);
       } catch (err: any) {
         setError(err);
       } finally {
         setLoading(false);
       }
-    }, [sdk, owner]);
+    }, [sdk, metadataUri, profileAccount, userAccount, owner]
+  );
 
   useEffect(() => {
-  createPost();
+    createPost();
   }, [createPost]);
 
   return { 
     instructionMethodBuilder: post ? post.instructionMethodBuilder : undefined,
-    userPDA: post ? post.postPDA : undefined,
+    postPDA: post ? post.postPDA : undefined,
     loading, 
     error 
   };

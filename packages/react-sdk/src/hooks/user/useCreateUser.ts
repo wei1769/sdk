@@ -13,8 +13,7 @@ const useCreateUser = (sdk: SDK, owner: PublicKey) => {
       setError(null);
 
       try {
-        let data;
-        data = await sdk.user.create(owner);
+        const data = await sdk.user.create(owner);
 
         setUser(data);
       } catch (err: any) {

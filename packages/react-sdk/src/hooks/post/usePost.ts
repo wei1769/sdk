@@ -3,20 +3,19 @@ import { useState, useEffect, useCallback } from "react";
 import { PublicKey } from "@solana/web3.js";
 
 const usePost = (sdk: SDK, postAccount: PublicKey) => {
-  const [profile, setProfile] = useState<any>(null);
+  const [post, setPost] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const fetchProfile = useCallback(
+  const fetchPost = useCallback(
     async () => {
       setLoading(true);
       setError(null);
 
       try {
-        let data;
-        data = await sdk.post.get(postAccount);
+        const data = await sdk.post.get(postAccount);
 
-        setProfile(data);
+        setPost(data);
       } catch (err: any) {
         setError(err);
       } finally {
@@ -25,10 +24,10 @@ const usePost = (sdk: SDK, postAccount: PublicKey) => {
     }, [sdk, postAccount]);
 
   useEffect(() => {
-  fetchProfile();
-  }, [fetchProfile]);
+  fetchPost();
+  }, [fetchPost]);
 
-  return { profile, loading, error };
+  return { post, loading, error };
 };
 
 export default usePost;

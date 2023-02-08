@@ -14,8 +14,7 @@ const useProfile = (sdk: SDK, profileAccount: PublicKey) => {
       setError(null);
 
       try {
-        let data;
-        data = await sdk.profile.get(profileAccount);
+        const data = await sdk.profile.get(profileAccount);
 
         setProfile(data);
       } catch (err: any) {
