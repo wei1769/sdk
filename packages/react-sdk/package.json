@@ -1,6 +1,7 @@
 {
   "name": "@gumhq/react-sdk",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "main": "lib/index.js",
   "private": true,
   "dependencies": {
     "@gumhq/sdk": "^1.0.3",
@@ -15,7 +16,8 @@
     "react": "^18.2.0"
   },
   "scripts": {
-    "build": "tsc",
+    "clean": "rimraf lib",
+    "build": "npm run clean && tsc",
     "start": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
