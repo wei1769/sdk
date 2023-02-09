@@ -31,13 +31,26 @@ const useCreateProfile = (sdk: SDK, metadataUri: String, namespace: Namespace, u
       }
     }, [sdk, owner]);
 
+    const handleSubmitTransaction = useCallback(
+      async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          await profile.instructionMethodBuilder.rpc();
+        } catch (err: any) {
+          setError(err);
+        } finally {
+          setLoading(false);
+        }
+      }, [profile]);
+
   useEffect(() => {
   createProfile();
   }, [createProfile]);
 
   return { 
     instructionMethodBuilder: profile ? profile.instructionMethodBuilder : undefined,
-    submitTransaction: profile && profile.instructionMethodBuilder ? profile.instructionMethodBuilder.rpc() : undefined,
+    submitTransaction: handleSubmitTransaction,
     profilePDA: profile ? profile.profilePDA : undefined,
     loading, 
     error 

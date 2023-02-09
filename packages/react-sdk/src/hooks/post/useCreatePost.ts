@@ -23,13 +23,28 @@ const useCreatePost = (sdk: SDK, metadataUri: String, profileAccount: PublicKey,
     }, [sdk, metadataUri, profileAccount, userAccount, owner]
   );
 
+  const handleSubmitTransaction = useCallback(
+    async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        await post.instructionMethodBuilder.rpc();
+      } catch (err: any) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }, [post]
+  );
+
   useEffect(() => {
     createPost();
   }, [createPost]);
 
   return { 
     instructionMethodBuilder: post ? post.instructionMethodBuilder : undefined,
-    submitTransaction: post && post.instructionMethodBuilder ? post.instructionMethodBuilder.rpc() : undefined,
+    submitTransaction: handleSubmitTransaction,
     postPDA: post ? post.postPDA : undefined,
     loading, 
     error 

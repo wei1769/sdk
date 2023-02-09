@@ -23,13 +23,27 @@ const useCreateUser = (sdk: SDK, owner: PublicKey) => {
       }
     }, [sdk, owner]);
 
+  const handleSubmitTransaction = useCallback(
+    async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        await user.instructionMethodBuilder.rpc();
+      } catch (err: any) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }, [user]);
+
   useEffect(() => {
   createUser();
   }, [createUser]);
 
   return { 
     instructionMethodBuilder: user ? user.instructionMethodBuilder : undefined,
-    submitTransaction: user && user.instructionMethodBuilder ? user.instructionMethodBuilder.rpc() : undefined,
+    submitTransaction: handleSubmitTransaction,
     userPDA: user ? user.userPDA : undefined,
     loading, 
     error 
