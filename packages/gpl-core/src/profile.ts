@@ -6,7 +6,7 @@ export type Namespace = "Professional" | "Personal" | "Gaming" | "Degen";
 
 export interface GumDecodedProfile {
   username: anchor.web3.PublicKey;
-  namespace: string;
+  namespace: Namespace;
   cl_pubkey: anchor.web3.PublicKey;
 }
 
